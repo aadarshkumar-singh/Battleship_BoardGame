@@ -76,5 +76,13 @@ void part1tests () {
                     GridPosition{"D2"}, GridPosition{"E2"}},
             "Occupied area not correct");
 
+    // Occupied area
+    assertTrue(Ship{GridPosition{"B2"}, GridPosition{"C2"}}.blockedArea()
+            == set<GridPosition>{GridPosition{"A1"},
+    	GridPosition{"B1"}, GridPosition{"C1"},
+		GridPosition{"D1"}, GridPosition{"A2"}, GridPosition{"B2"},
+		GridPosition{"C2"}, GridPosition{"D2"}, GridPosition{"A3"},
+		GridPosition{"B3"}, GridPosition{"C3"}, GridPosition{"D3"}},"Occupied area not correct");
+
 }
 

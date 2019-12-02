@@ -80,8 +80,42 @@ int Ship::length() const
 const set<GridPosition> Ship::occupiedArea()
 {
 	int shipLength = length();
+	int column;
+	char row;
 	set<GridPosition> areaOccupied;
-	set<GridPosition>::iterator it = areaOccupied.begin();
+
+	if (m_bow < m_stern)
+	{
+		row = m_bow.getRow();
+		column = m_bow.getColumn();
+	}
+	else
+	{
+		row = m_stern.getRow();
+		column = m_stern.getColumn();
+	}
+
+	for (int i =0;i< shipLength ; i++)
+	{
+		if(m_bow.getRow() == m_stern.getRow())
+		{
+			areaOccupied.insert(GridPosition(row,column++));
+		}
+		else
+		{
+			areaOccupied.insert(GridPosition(row++,column));
+		}
+	}
+
+	return areaOccupied ;
+}
+
+const set<GridPosition> Ship::blockedArea()
+{
+	int shipLength = length();
+	char traverseRow;
+	int traverseColumn;
+	set<GridPosition> areaBlocked;
 	char row;
 	int column;
 
@@ -98,24 +132,42 @@ const set<GridPosition> Ship::occupiedArea()
 
 	for (int i =0;i< shipLength ; i++)
 	{
-
 		if(m_bow.getRow() == m_stern.getRow())
 		{
-			areaOccupied.insert(GridPosition(row,column++));
+			for (char rowshift =-1 ; rowshift <= 1 ; rowshift++)
+			{
+				for (int colshift =-1 ; colshift <= 1 ; colshift++)
+				{
+					traverseRow = row + rowshift ;
+					traverseColumn = column + colshift ;
+					if (traverseRow >='A' && traverseRow <='J'  &&
+							traverseColumn >= 1 && traverseColumn <= 10)
+					{
+						areaBlocked.insert(GridPosition(traverseRow,traverseColumn));
+					}
+				}
+			}
+
+			column++;
 		}
 		else
 		{
-			areaOccupied.insert(GridPosition(row++,column));
+			for (char rowshift =-1 ; rowshift <= 1 ; rowshift++)
+			{
+				for (int colshift =-1 ; colshift <= 1 ; colshift++)
+				{
+					traverseRow = row + rowshift ;
+					traverseColumn = column + colshift ;
+					if (traverseRow >='A' && traverseRow <='J'  &&
+							traverseColumn >= 1 && traverseColumn <= 10)
+					{
+						areaBlocked.insert(GridPosition(traverseRow,traverseColumn));
+					}
+				}
+			}
+			row++;
 		}
 	}
-
-	return areaOccupied ;
-
+	return areaBlocked;
 }
-//
-//const set<GridPosition> Ship::blockedArea()
-//{
-//
-//
-//}
-//
+

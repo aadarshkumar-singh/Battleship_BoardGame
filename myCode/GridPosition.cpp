@@ -49,7 +49,7 @@ GridPosition::operator string() const
 	return position;
 }
 
-bool GridPosition::operator==(GridPosition cmpGridPosition) const
+bool GridPosition::operator==(const GridPosition& cmpGridPosition) const
 {
 	bool checkIfEqual = false ;
 	if ((m_row == cmpGridPosition.getRow()) && (m_column == cmpGridPosition.getColumn()))
@@ -59,15 +59,31 @@ bool GridPosition::operator==(GridPosition cmpGridPosition) const
 	return checkIfEqual;
 }
 
-bool GridPosition::operator<(GridPosition cmpGridPosition) const
+bool GridPosition::operator<(const GridPosition& cmpGridPosition) const
 {
 	bool checkIfSmaller = false ;
-	if (m_row < cmpGridPosition.getRow() || m_column < cmpGridPosition.getColumn())
+
+	if (m_row < cmpGridPosition.getRow())
 	{
-		checkIfSmaller = true ;
+		return true ;
 	}
+	else if (m_row > cmpGridPosition.getRow())
+	{
+		return false;
+	}
+	else if (m_row == cmpGridPosition.getRow())
+	{
+		if(m_column < cmpGridPosition.getColumn())
+			return true ;
+		else
+			return false;
+	}
+
 	return checkIfSmaller;
+
 }
+
+
 
 GridPosition::GridPosition()
 {

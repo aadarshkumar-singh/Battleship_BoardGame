@@ -26,8 +26,8 @@ public:
 	char getRow() const ;
 	int getColumn() const;
 	operator string()const ;
-	bool operator==(GridPosition cmpGridPosition) const;
-	bool operator<(GridPosition cmpGridPosition) const ;
+	bool operator==(const GridPosition& cmpGridPosition) const;
+	bool operator<(const GridPosition& cmpGridPosition) const ;
 };
 
 #endif /* GRIDPOSITION_H_ */

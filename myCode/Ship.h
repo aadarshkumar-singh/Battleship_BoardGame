@@ -25,7 +25,7 @@ public:
 	GridPosition getStern()const ;
 	int length() const;
 	const set<GridPosition> occupiedArea();
-	//const set<GridPosition> blockedArea();
+	const set<GridPosition> blockedArea();
 };
 
 #endif /* SHIP_H_ */
