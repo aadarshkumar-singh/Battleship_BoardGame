@@ -10,6 +10,9 @@
 
 #include "Ship.h"
 #include <vector>
+#include <map>
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -17,14 +20,17 @@ class OwnGrid
 {
 	int m_rows;
 	int m_columns;
-	Ship m_ships;
+	vector<Ship> m_ships;
+	map<int,int> m_limitOnPlaceShip ;
+
 
 public:
 	OwnGrid(int rows, int columns);
+	OwnGrid();
 	int getRows();
 	int getColumns();
 	bool placeShip(const Ship& ship);
-	const vector<Ship> getShips();
+	const vector<Ship> getShips() const;
 	~OwnGrid();
 };
 

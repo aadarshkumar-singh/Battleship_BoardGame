@@ -10,10 +10,13 @@
 
 #include "Board.h"
 
+#define BOARD_SIZE 10
+
 class ConsoleView
 {
-	Board* m_board;
-
+	char **m_pdisplayBoard;
+	Board *m_pboard;
+	void createEmptyBoard();
 public:
 	ConsoleView(Board* board);
 	void print();

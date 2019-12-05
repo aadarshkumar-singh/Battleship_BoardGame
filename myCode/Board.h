@@ -13,12 +13,18 @@
 
 class Board
 {
+	char** m_ownBoard ;
 	OwnGrid m_ownGrid;
-	OpponentGrid m_opponentGrid;
+	void createEmptyBoard();
+
+	//OpponentGrid m_opponentGrid;
 public:
 	Board(int rows, int columns);
+	Board();
 	int getRows();
 	int getColumns();
+	char** getOwnBoard();
+	bool setShipOnBoard(const Ship& ship);
 	OwnGrid& getOwnGrid();
 	OpponentGrid& getOpponentGrid();
 	~Board();

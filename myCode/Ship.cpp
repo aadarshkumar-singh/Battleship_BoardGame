@@ -77,7 +77,7 @@ int Ship::length() const
 }
 
 
-const set<GridPosition> Ship::occupiedArea()
+const set<GridPosition> Ship::occupiedArea() const
 {
 	int shipLength = length();
 	int column;
@@ -110,7 +110,7 @@ const set<GridPosition> Ship::occupiedArea()
 	return areaOccupied ;
 }
 
-const set<GridPosition> Ship::blockedArea()
+const set<GridPosition> Ship::blockedArea() const
 {
 	int shipLength = length();
 	char traverseRow;
@@ -170,4 +170,3 @@ const set<GridPosition> Ship::blockedArea()
 	}
 	return areaBlocked;
 }
-

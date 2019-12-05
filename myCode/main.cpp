@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "part1tests.h"
+#include "part2tests.h"
 // Add more standard header files as required
 // #include <string>
 
@@ -16,6 +17,7 @@ int main (void)
     // TODO: Add your program code here
 	cout << "BattleshipGameSetup started." << endl << endl;
 	part1tests ();
+	part2tests ();
 
 	return 0;
 }
