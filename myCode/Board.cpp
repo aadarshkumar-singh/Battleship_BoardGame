@@ -63,6 +63,8 @@ bool Board::setShipOnBoard(const Ship &ship)
 	{
 		checkFlag = true;
 		toBePlacedOnBoard = ship.occupiedArea();
+
+
 		for(set<GridPosition>::iterator it = toBePlacedOnBoard.begin(); it != toBePlacedOnBoard.end(); ++it)
 		{
 			//cout <<it->getRow()<<it->getColumn()<<"  ";
@@ -81,6 +83,45 @@ bool Board::setShipOnBoard(const Ship &ship)
 	}
 
 	return checkFlag ;
+}
+
+Impact_t Board::makeOpponentMoveOnOwnGrid(const Shot& shot)
+{
+	Impact_t checkResults = NONE;
+	GridPosition shotPosition = shot.getTargetPosition();
+	int row = ((int)shotPosition.getRow()-65);
+	int column = (shotPosition.getColumn()-1);
+	//set<GridPosition>::iterator it;
+	checkResults = m_ownGrid.takeBlow(shot);
+
+	if (checkResults == NONE)
+	{
+		cout<< "Its a miss"<<endl;
+		m_ownBoard[row][column] ='^';
+	}
+	else if (checkResults == HIT)
+	{
+		cout<< "Its a hit"<<endl;
+		m_ownBoard[row][column] = 'O';
+	}
+	else if (checkResults == SUNKEN)
+	{
+		cout<< "Ship Destroyed"<<endl;
+		for(set<GridPosition>::iterator it = m_ownGrid.getSunkenShipOwnGrid().begin(); it != m_ownGrid.getSunkenShipOwnGrid().end(); ++it)
+		{
+			for (int rowIndex =0 ; rowIndex < m_ownGrid.getRows();rowIndex++)
+			{
+				for (int colIndex =0 ; colIndex < m_ownGrid.getRows();colIndex++)
+				{
+					if((char(rowIndex+65) == it->getRow()) && (colIndex == (it->getColumn()-1)))
+					{
+						m_ownBoard[rowIndex][colIndex] = 'X';
+					}
+				}
+			}
+		}
+	}
+	return checkResults;
 }
 
 //

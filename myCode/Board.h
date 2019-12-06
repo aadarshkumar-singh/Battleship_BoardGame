@@ -25,6 +25,7 @@ public:
 	int getColumns();
 	char** getOwnBoard();
 	bool setShipOnBoard(const Ship& ship);
+	Impact_t makeOpponentMoveOnOwnGrid(const Shot& shot);
 	OwnGrid& getOwnGrid();
 	OpponentGrid& getOpponentGrid();
 	~Board();

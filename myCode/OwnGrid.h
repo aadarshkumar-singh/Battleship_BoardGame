@@ -9,6 +9,7 @@
 #define OWNGRID_H_
 
 #include "Ship.h"
+#include "Shot.h"
 #include <vector>
 #include <map>
 #include <iostream>
@@ -22,7 +23,8 @@ class OwnGrid
 	int m_columns;
 	vector<Ship> m_ships;
 	map<int,int> m_limitOnPlaceShip ;
-
+	set<GridPosition> m_shotAt;
+	set<GridPosition> m_sunkenShipOwnGrid;
 
 public:
 	OwnGrid(int rows, int columns);
@@ -31,6 +33,10 @@ public:
 	int getColumns();
 	bool placeShip(const Ship& ship);
 	const vector<Ship> getShips() const;
+	Impact_t takeBlow(const Shot& shot);
+	const set<GridPosition> getDestroyedShip();
+	const set<GridPosition> getShotAt();
+	const set<GridPosition> getSunkenShipOwnGrid();
 	~OwnGrid();
 };
 

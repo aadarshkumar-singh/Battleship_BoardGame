@@ -81,6 +81,7 @@ bool OwnGrid::placeShip(const Ship& ship)
 		{
 			for(vector<Ship>::iterator it = m_ships.begin(); it != m_ships.end(); ++it)
 			{
+				// Means blocked area intersection with occupied area is not an empty set
 				if(is_disjoint(it->blockedArea(),ship.occupiedArea()) == false)
 				{
 					checkFlag= false;
@@ -94,7 +95,6 @@ bool OwnGrid::placeShip(const Ship& ship)
 				m_ships.push_back(ship);
 				cout <<"Added Extra Ship"<<endl;
 			}
-
 		}
 	}
 
@@ -113,6 +113,55 @@ OwnGrid::OwnGrid()
 	m_limitOnPlaceShip ={{5,1},{4,2},{3,3},{2,4}};
 }
 
+Impact_t OwnGrid::takeBlow(const Shot& shot)
+{
+	Impact_t resultFlag = NONE;
+	int LengthOfBlowOnShip;
+
+	for(vector<Ship>::iterator it = m_ships.begin(); it != m_ships.end(); ++it)
+	{
+		set<GridPosition> BlowOnShip ;
+		set<GridPosition> shipPositions = it->occupiedArea();
+		// target position is not present in this ship, goto next ship , iterate over all
+		if (shipPositions.find(shot.getTargetPosition()) == shipPositions.end())
+		{
+			resultFlag = NONE;
+		}
+		else
+		{
+			// One shot can hit only one grid position, once hit we need to check if it just hit or sunk the current ship
+			set_intersection(m_shotAt.begin(),m_shotAt.end(),shipPositions.begin(),shipPositions.end(),std::inserter(BlowOnShip,BlowOnShip.begin()));
+			LengthOfBlowOnShip =BlowOnShip.size();
+			if(LengthOfBlowOnShip == (it->length()-1))
+			{
+				resultFlag = SUNKEN;
+				m_sunkenShipOwnGrid = shipPositions;
+				m_shotAt.insert(shot.getTargetPosition());
+				return (resultFlag);
+			}
+			else
+			{
+				resultFlag = HIT;
+				m_shotAt.insert(shot.getTargetPosition());
+				return (resultFlag);
+			}
+		}
+	}
+	m_shotAt.insert(shot.getTargetPosition());
+	return resultFlag;
+}
+
+const set<GridPosition> OwnGrid::getShotAt()
+{
+	return m_shotAt ;
+}
+
+const set<GridPosition> OwnGrid::getSunkenShipOwnGrid()
+{
+	return m_sunkenShipOwnGrid ;
+}
+
 OwnGrid::~OwnGrid()
 {
+
 }

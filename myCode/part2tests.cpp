@@ -67,6 +67,9 @@ void part2tests ()
 	testBoard1.setShipOnBoard(Ship{GridPosition{"B2"}, GridPosition{"B4"}});
 	testBoard1.setShipOnBoard(Ship{GridPosition{"D4"}, GridPosition{"G4"}});
 	testBoard1.setShipOnBoard(Ship{GridPosition{"F6"}, GridPosition{"F9"}});
+	testBoard1.makeOpponentMoveOnOwnGrid(Shot{GridPosition{"B2"}});
+	testBoard1.makeOpponentMoveOnOwnGrid(Shot{GridPosition{"B3"}});
+	testBoard1.makeOpponentMoveOnOwnGrid(Shot{GridPosition{"B4"}});
 	ConsoleView testConsoleView(&testBoard1);
 	testConsoleView.print();
 }
