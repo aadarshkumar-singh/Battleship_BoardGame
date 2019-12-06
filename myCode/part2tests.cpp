@@ -61,6 +61,25 @@ void part2tests ()
 	    cout <<it->getBow().getRow()<<it->getBow().getColumn()<<"  ";
 	    cout <<it->getStern().getRow()<<it->getStern().getColumn()<<endl;
 	}
+	cout<<"Opponent Grid"<<endl;
+
+	OpponentGrid testGrid1(10,10);
+
+	testGrid1.shotResult(Shot{GridPosition{"B2"}}, HIT );
+	testGrid1.shotResult(Shot{GridPosition{"B4"}}, HIT );
+	testGrid1.shotResult(Shot{GridPosition{"B3"}}, SUNKEN);
+
+	vector<Ship> test =testGrid1.getShunkenShipsOfOpponent();
+
+	for(vector<Ship>::const_iterator it = test.begin(); it != test.end();++it)
+	{
+		cout <<it->getBow().getRow()<<it->getBow().getColumn()<<"  ";
+		cout <<it->getStern().getRow()<<it->getStern().getColumn()<<endl;
+
+	}
+
+	cout <<"Length of sunkenship"<<testGrid1.getShunkenShipsOfOpponent().size()<<endl;
+
 
 	cout <<"Check via Console view";
 	Board testBoard1(10,10);
@@ -72,5 +91,8 @@ void part2tests ()
 	testBoard1.makeOpponentMoveOnOwnGrid(Shot{GridPosition{"B4"}});
 	ConsoleView testConsoleView(&testBoard1);
 	testConsoleView.print();
+
+
+
 }
 

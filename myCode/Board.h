@@ -14,9 +14,9 @@
 class Board
 {
 	char** m_ownBoard ;
+	//char** m_oppnentBoard ;
 	OwnGrid m_ownGrid;
 	void createEmptyBoard();
-
 	//OpponentGrid m_opponentGrid;
 public:
 	Board(int rows, int columns);
@@ -26,6 +26,7 @@ public:
 	char** getOwnBoard();
 	bool setShipOnBoard(const Ship& ship);
 	Impact_t makeOpponentMoveOnOwnGrid(const Shot& shot);
+
 	OwnGrid& getOwnGrid();
 	OpponentGrid& getOpponentGrid();
 	~Board();

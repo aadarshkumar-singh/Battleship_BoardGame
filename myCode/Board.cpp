@@ -11,7 +11,7 @@ Board::Board(int rows, int columns)
 {
 	m_ownGrid = OwnGrid(rows,columns);
 	m_ownBoard = new char*[rows];
-	for (int rowIndex = 0; rowIndex < 10; rowIndex++)
+	for (int rowIndex = 0; rowIndex < rows; rowIndex++)
 	{
 		m_ownBoard[rowIndex] = new char[columns];
 	}
