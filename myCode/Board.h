@@ -14,19 +14,20 @@
 class Board
 {
 	char** m_ownBoard ;
-	//char** m_oppnentBoard ;
+	char** m_opponentBoard ;
 	OwnGrid m_ownGrid;
-	void createEmptyBoard();
-	//OpponentGrid m_opponentGrid;
+	OpponentGrid m_opponentGrid;
+	void createEmptyBoard(char **gameBoard,int rows, int columns);
 public:
 	Board(int rows, int columns);
 	Board();
 	int getRows();
 	int getColumns();
 	char** getOwnBoard();
+	char** getOpponentBoard();
 	bool setShipOnBoard(const Ship& ship);
 	Impact_t makeOpponentMoveOnOwnGrid(const Shot& shot);
-
+	void checkOwnMovesOnOpponentGrid(const Shot& shot,Impact_t impact);
 	OwnGrid& getOwnGrid();
 	OpponentGrid& getOpponentGrid();
 	~Board();

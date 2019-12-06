@@ -90,9 +90,16 @@ void part2tests ()
 	testBoard1.makeOpponentMoveOnOwnGrid(Shot{GridPosition{"B3"}});
 	testBoard1.makeOpponentMoveOnOwnGrid(Shot{GridPosition{"B4"}});
 	ConsoleView testConsoleView(&testBoard1);
-	testConsoleView.print();
+	testConsoleView.printOwnBoard();
 
-
+	cout <<"opponent Check"<<endl;
+	Board testOpponentBoard(10,10);
+	testOpponentBoard.checkOwnMovesOnOpponentGrid(Shot{GridPosition{"B2"}}, HIT);
+	testOpponentBoard.checkOwnMovesOnOpponentGrid(Shot{GridPosition{"B3"}}, HIT);
+	testOpponentBoard.checkOwnMovesOnOpponentGrid(Shot{GridPosition{"B4"}}, HIT);
+	testOpponentBoard.checkOwnMovesOnOpponentGrid(Shot{GridPosition{"B5"}}, SUNKEN);
+	ConsoleView testConsoleView1(&testOpponentBoard);
+	testConsoleView1.printOpponentBoard();
 
 }
 

@@ -14,12 +14,15 @@
 
 class ConsoleView
 {
-	char **m_pdisplayBoard;
+	char **m_pdisplayOwnBoard;
+	char **m_pdisplayOpponentBoard;
 	Board *m_pboard;
-	void createEmptyBoard();
+	void printBoard(char **pBoard);
+
 public:
 	ConsoleView(Board* board);
-	void print();
+	void printOpponentBoard();
+	void printOwnBoard();
 	~ConsoleView();
 };
 

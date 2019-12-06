@@ -10,12 +10,22 @@
 Board::Board(int rows, int columns)
 {
 	m_ownGrid = OwnGrid(rows,columns);
+	m_opponentGrid = OpponentGrid(rows,columns);
+
 	m_ownBoard = new char*[rows];
 	for (int rowIndex = 0; rowIndex < rows; rowIndex++)
 	{
 		m_ownBoard[rowIndex] = new char[columns];
 	}
-	createEmptyBoard();
+
+	m_opponentBoard = new char*[rows];
+	for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+	{
+		m_opponentBoard[rowIndex] = new char[columns];
+	}
+
+	createEmptyBoard(m_ownBoard,rows,columns);
+	createEmptyBoard(m_opponentBoard,rows,columns);
 }
 
 int Board::getRows()
@@ -38,21 +48,25 @@ Board::Board()
 
 }
 
-void Board::createEmptyBoard()
+void Board::createEmptyBoard(char **gameBoard,int rows, int columns)
 {
-	for (int rowIndex =0 ; rowIndex < m_ownGrid.getRows();rowIndex++)
+	for (int rowIndex =0 ; rowIndex < rows ;rowIndex++)
 	{
-		for (int colIndex =0 ; colIndex < m_ownGrid.getRows();colIndex++)
+		for (int colIndex =0 ; colIndex < columns;colIndex++)
 		{
-			m_ownBoard[rowIndex][colIndex] = '~';
+			gameBoard[rowIndex][colIndex] = '~';
 		}
 	}
-
 }
 
 char** Board::getOwnBoard()
 {
 	return(m_ownBoard);
+}
+
+char** Board::getOpponentBoard()
+{
+	return(m_opponentBoard);
 }
 
 bool Board::setShipOnBoard(const Ship &ship)
@@ -63,7 +77,6 @@ bool Board::setShipOnBoard(const Ship &ship)
 	{
 		checkFlag = true;
 		toBePlacedOnBoard = ship.occupiedArea();
-
 
 		for(set<GridPosition>::iterator it = toBePlacedOnBoard.begin(); it != toBePlacedOnBoard.end(); ++it)
 		{
@@ -124,10 +137,44 @@ Impact_t Board::makeOpponentMoveOnOwnGrid(const Shot& shot)
 	return checkResults;
 }
 
-//
-//OpponentGrid& Board::getOpponentGrid()
-//{
-//}
+OpponentGrid& Board::getOpponentGrid()
+{
+	return (m_opponentGrid);
+}
+
+void Board::checkOwnMovesOnOpponentGrid(const Shot &shot, Impact_t impact)
+{
+	int row =0;
+	int column =0;
+	vector<Ship> sunkenShipOpponent;
+	m_opponentGrid.shotResult(shot,impact);
+
+	for ( auto iteratorMap : m_opponentGrid.getShotsAt())
+	{
+		row =(iteratorMap.first.getRow()-65);
+		column = (iteratorMap.first.getColumn()-1);
+
+		if (iteratorMap.second == HIT)
+		{
+			m_opponentBoard[row][column] = 'O';
+		}
+		else if (iteratorMap.second == NONE)
+		{
+			m_opponentBoard[row][column] = '^';
+		}
+		else if(iteratorMap.second == SUNKEN)
+		{
+			sunkenShipOpponent = m_opponentGrid.getShunkenShipsOfOpponent();
+			for (auto iteratorShip : sunkenShipOpponent)
+			{
+				for (auto iteratorGridPos :iteratorShip.occupiedArea())
+				{
+					m_opponentBoard[iteratorGridPos.getRow()-65][iteratorGridPos.getColumn()-1]='#';
+				}
+			}
+		}
+	}
+}
 
 Board::~Board()
 {
