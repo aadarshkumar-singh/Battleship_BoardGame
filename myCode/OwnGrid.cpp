@@ -55,47 +55,51 @@ bool OwnGrid::placeShip(const Ship& ship)
 	 * so check for the length is already covered in isValid condition
 	 * of ship. Hence finding value of a single key without itrating in for
 	 */
-	findAvailableShips = m_limitOnPlaceShip.find(shipLength);
-	if(findAvailableShips != m_limitOnPlaceShip.end())
+	if (ship.isValid())
 	{
-		if (findAvailableShips->second > 0)
+		findAvailableShips = m_limitOnPlaceShip.find(shipLength);
+		if(findAvailableShips != m_limitOnPlaceShip.end())
 		{
-			checkFlag = true ;
-			findAvailableShips->second = findAvailableShips->second -1 ;
-		}
-		else
-		{
-			checkFlag = false;
-			cout<<"Invalid"<<endl;
-		}
-	}
-
-	if (checkFlag == true)
-	{
-		if(m_ships.empty())
-		{
-			cout <<"Added Extra Ship"<<endl;
-			m_ships.push_back(ship);
-		}
-		else
-		{
-			for(vector<Ship>::iterator it = m_ships.begin(); it != m_ships.end(); ++it)
+			if (findAvailableShips->second > 0)
 			{
-				// Means blocked area intersection with occupied area is not an empty set
-				if(is_disjoint(it->blockedArea(),ship.occupiedArea()) == false)
+				checkFlag = true ;
+			}
+			else
+			{
+				checkFlag = false;
+				//cout<<"Invalid"<<endl;
+			}
+		}
+
+		if (checkFlag == true)
+		{
+			if(m_ships.empty())
+			{
+				//cout <<"Added Extra Ship"<<endl;
+				m_ships.push_back(ship);
+				findAvailableShips->second = findAvailableShips->second -1 ;
+			}
+			else
+			{
+				for(vector<Ship>::iterator it = m_ships.begin(); it != m_ships.end(); ++it)
 				{
-					checkFlag= false;
-					cout<<"Invalid"<<endl;
-					break;
+					// Means blocked area intersection with occupied area is not an empty set
+					if(is_disjoint(it->blockedArea(),ship.occupiedArea()) == false)
+					{
+						checkFlag= false;
+						break;
+					}
+				}
+
+				if (checkFlag == true)
+				{
+					m_ships.push_back(ship);
+					findAvailableShips->second = findAvailableShips->second -1 ;
+					//cout <<"Added Extra Ship"<<endl;
 				}
 			}
-
-			if (checkFlag == true)
-			{
-				m_ships.push_back(ship);
-				cout <<"Added Extra Ship"<<endl;
-			}
 		}
+
 	}
 
 	return checkFlag;

@@ -69,7 +69,7 @@ char** Board::getOpponentBoard()
 	return(m_opponentBoard);
 }
 
-bool Board::setShipOnBoard(const Ship &ship)
+bool Board::setShipOnOwnBoard(const Ship &ship)
 {
 	bool checkFlag = false ;
 	set<GridPosition> toBePlacedOnBoard ;
@@ -120,18 +120,10 @@ Impact_t Board::makeOpponentMoveOnOwnGrid(const Shot& shot)
 	else if (checkResults == SUNKEN)
 	{
 		cout<< "Ship Destroyed"<<endl;
-		for(set<GridPosition>::iterator it = m_ownGrid.getSunkenShipOwnGrid().begin(); it != m_ownGrid.getSunkenShipOwnGrid().end(); ++it)
+		set<GridPosition> ownSunkenShips = m_ownGrid.getSunkenShipOwnGrid();
+		for (auto iteratorGrid : ownSunkenShips)
 		{
-			for (int rowIndex =0 ; rowIndex < m_ownGrid.getRows();rowIndex++)
-			{
-				for (int colIndex =0 ; colIndex < m_ownGrid.getRows();colIndex++)
-				{
-					if((char(rowIndex+65) == it->getRow()) && (colIndex == (it->getColumn()-1)))
-					{
-						m_ownBoard[rowIndex][colIndex] = 'X';
-					}
-				}
-			}
+			m_ownBoard[((int)iteratorGrid.getRow()-65)][(iteratorGrid.getColumn()-1)] = 'X';
 		}
 	}
 	return checkResults;

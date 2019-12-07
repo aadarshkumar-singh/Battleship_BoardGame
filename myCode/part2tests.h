@@ -12,7 +12,7 @@
 #include <vector>
 using namespace std;
 
-//void assertTrue(bool condition, string failedMessage);
+void assertTruePart2Test(bool condition, string failedMessage);
 void part2tests ();
 
 
