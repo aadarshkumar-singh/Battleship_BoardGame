@@ -11,9 +11,10 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <set>
 using namespace std;
 
-//void assertTruePart3Test(bool condition, string failedMessage);
+void assertTruePart3Test(bool condition, string failedMessage);
 void part3tests ();
 
 

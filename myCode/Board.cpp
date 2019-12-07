@@ -109,17 +109,14 @@ Impact_t Board::makeOpponentMoveOnOwnGrid(const Shot& shot)
 
 	if (checkResults == NONE)
 	{
-		cout<< "Its a miss"<<endl;
 		m_ownBoard[row][column] ='^';
 	}
 	else if (checkResults == HIT)
 	{
-		cout<< "Its a hit"<<endl;
 		m_ownBoard[row][column] = 'O';
 	}
 	else if (checkResults == SUNKEN)
 	{
-		cout<< "Ship Destroyed"<<endl;
 		set<GridPosition> ownSunkenShips = m_ownGrid.getSunkenShipOwnGrid();
 		for (auto iteratorGrid : ownSunkenShips)
 		{
