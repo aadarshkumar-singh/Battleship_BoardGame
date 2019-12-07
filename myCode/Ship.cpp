@@ -1,9 +1,20 @@
-/*
- * Ship.cpp
+/***************************************************************************
+****************************************************************************
+ * \file Ship.cpp
+ * \author Aadarsh Kumar Singh <aadarsh.k.singh@stud.h-da.de>
+ * \date 30.11.2019
  *
- *  Created on: Nov 30, 2019
- *      Author: Aadarshxp
- */
+ * \brief Ship.cpp
+ *
+ *	Source file to create ships for the battleship game using the bow and
+ *	stern positions. it checks the created ship is a valid ship also
+ *	provides API to determine its size, occupied area and the blocked area.
+ *
+ * \note  The bow and stern indicates the ends of the ship. A valid Ship has
+ * 		  length in between 2 and 5. Blocked area are all the tiles one step
+ * 		  to the occupied area of the ship.
+ *
+****************************************************************************/
 
 #include "Ship.h"
 #include "iostream"
@@ -20,11 +31,16 @@ bool Ship::isValid() const
 {
 	bool checkSanity = false;
 
+	/* Checks if bow and stern Grid is valid*/
 	if (m_bow.isValid() && m_stern.isValid())
 	{
+		/*
+		 * The ships can only be placed horizontally or vertically , either row or column of ends should
+		 * be same
+		 */
 		if ((m_bow.getRow() == m_stern.getRow()) || (m_bow.getColumn() == m_stern.getColumn()))
 		{
-			if ((length() >= 2) && (length() <= 5))
+			if ((length() >= SHIP_MINIMUM_SIZE) && (length() <= SHIP_MAXIMUM_SIZE))
 			{
 				checkSanity = true;
 			}
@@ -49,8 +65,10 @@ int Ship::length() const
 {
 	int shipLength = 0 ;
 
+	/* The ships can be placed vertically and horizontally in any way  */
 	if (m_stern < m_bow)
 	{
+		/* if placed horizontal*/
 		if(m_bow.getRow() == m_stern.getRow())
 		{
 			shipLength = (m_bow.getColumn() - m_stern.getColumn()) + 1;
@@ -76,7 +94,7 @@ int Ship::length() const
 
 }
 
-
+/*All grid positions in which ships are present are returned*/
 const set<GridPosition> Ship::occupiedArea() const
 {
 	int shipLength = length();
@@ -84,6 +102,7 @@ const set<GridPosition> Ship::occupiedArea() const
 	char row;
 	set<GridPosition> areaOccupied;
 
+	/* Determine the starting position to count grid Position occupied by the ship */
 	if (m_bow < m_stern)
 	{
 		row = m_bow.getRow();
@@ -94,7 +113,7 @@ const set<GridPosition> Ship::occupiedArea() const
 		row = m_stern.getRow();
 		column = m_stern.getColumn();
 	}
-
+	/* insert in a set all the grid position from starting to the length of ship */
 	for (int i =0;i< shipLength ; i++)
 	{
 		if(m_bow.getRow() == m_stern.getRow())
@@ -110,6 +129,10 @@ const set<GridPosition> Ship::occupiedArea() const
 	return areaOccupied ;
 }
 
+/*
+ * All grid positions in which ships are present and the grid positions
+ * one step near to the occupied area
+ */
 const set<GridPosition> Ship::blockedArea() const
 {
 	int shipLength = length();
@@ -118,7 +141,7 @@ const set<GridPosition> Ship::blockedArea() const
 	set<GridPosition> areaBlocked;
 	char row;
 	int column;
-
+	/* Determine the starting position to count grid Position blocked by the ship */
 	if (m_bow < m_stern)
 	{
 		row = m_bow.getRow();
@@ -130,8 +153,13 @@ const set<GridPosition> Ship::blockedArea() const
 		column = m_stern.getColumn();
 	}
 
+	/* traverse one step in all direction from the starting position */
 	for (int i =0;i< shipLength ; i++)
 	{
+		/*
+		 * If placed horizontal keep traversing along the same row and
+		 * increment the column by 1 from starting position
+		 */
 		if(m_bow.getRow() == m_stern.getRow())
 		{
 			for (char rowshift =-1 ; rowshift <= 1 ; rowshift++)
@@ -152,6 +180,10 @@ const set<GridPosition> Ship::blockedArea() const
 		}
 		else
 		{
+			/*
+			 * If placed vertically keep traversing along the same column and
+			 * increment the row by 1 from starting position
+			 */
 			for (char rowshift =-1 ; rowshift <= 1 ; rowshift++)
 			{
 				for (int colshift =-1 ; colshift <= 1 ; colshift++)
