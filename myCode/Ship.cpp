@@ -21,12 +21,14 @@
 
 using namespace std;
 
+/* sets the bow(end1) and stern(end2) of the ship. */
 Ship::Ship(const GridPosition& bow,const GridPosition& stern)
 {
 	m_bow = bow ;
 	m_stern = stern;
 }
 
+/*Checks if the ship created is valid or not*/
 bool Ship::isValid() const
 {
 	bool checkSanity = false;
@@ -51,11 +53,13 @@ bool Ship::isValid() const
 
 }
 
+/*Returns the bow (END1) of the ship.*/
 GridPosition Ship::getBow() const
 {
 	return m_bow;
 }
 
+/*Returns the stern (END2) of the ship.*/
 GridPosition Ship::getStern() const
 {
 	return m_stern ;

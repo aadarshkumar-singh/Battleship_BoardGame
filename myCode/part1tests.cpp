@@ -1,10 +1,14 @@
-/*
- * part1tests.cpp
+/***************************************************************************
+****************************************************************************
+ * \file part1tests.cpp
+ * \author Aadarsh Kumar Singh <aadarsh.k.singh@stud.h-da.de>
+ * \date 30.11.2019
  *
- *  Created on: 15.11.2019
- *      Author: mnl
- */
-
+ * \brief part1tests.cpp
+ *
+ *  Contains test cases for arrangement Rules on own grid
+ *
+****************************************************************************/
 
 #include "Board.h"
 #include "part1tests.h"

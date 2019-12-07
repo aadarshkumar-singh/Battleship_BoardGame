@@ -1,10 +1,14 @@
-/*
- * part2tests.cpp
+/***************************************************************************
+****************************************************************************
+ * \file part2tests.cpp
+ * \author Aadarsh Kumar Singh <aadarsh.k.singh@stud.h-da.de>
+ * \date 30.11.2019
  *
- *  Created on: 15.11.2019
- *      Author: mnl
- */
-
+ * \brief part2tests.cpp
+ *
+ *  Contains test cases for arrangement Rules on own grid
+ *
+****************************************************************************/
 
 #include "Board.h"
 #include "part2tests.h"
@@ -47,8 +51,8 @@ void part2tests ()
 		cout <<"Invalid Ship for testing"<<endl;
 	}
 
-	OwnGrid testOwnGrid = OwnGrid(10,10);
 	// Placement Rules Limited Ships with given length can only be placed.
+	OwnGrid testOwnGrid = OwnGrid(10,10);
 
 	// check trying to place invalid length (> 5)
 	assertTruePart2Test((!(testOwnGrid.placeShip(Ship{GridPosition{"B2"}, GridPosition{"F3"}}))),"Ship of invalid length placed");
@@ -62,8 +66,10 @@ void part2tests ()
 
 	// When Placing ships where ship is already placed
 	assertTruePart2Test((!(testOwnGrid.placeShip(Ship{GridPosition{"A4"}, GridPosition{"A7"}}))),"Placing ship where ship is already placed");
+
 	// Check ships must not touch
 	assertTruePart2Test((!(testOwnGrid.placeShip(Ship{GridPosition{"B4"}, GridPosition{"B7"}}))),"ships must not touch");
+
 	// Again placing ship of length 4
 	assertTruePart2Test(((testOwnGrid.placeShip(Ship{GridPosition{"C4"}, GridPosition{"C7"}}))),"More than 2 Ship of length 4 on board");
 	assertTruePart2Test((!(testOwnGrid.placeShip(Ship{GridPosition{"E4"}, GridPosition{"E7"}}))),"More than 2 Ship of length 4 on board");

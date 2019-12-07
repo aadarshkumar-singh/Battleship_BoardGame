@@ -1,34 +1,44 @@
-/*
- * OpponentGrid.cpp
+/***************************************************************************
+****************************************************************************
+ * \file OpponentGrid.cpp
+ * \author Aadarsh Kumar Singh <aadarsh.k.singh@stud.h-da.de>
+ * \date 30.11.2019
  *
- *  Created on: Nov 30, 2019
- *      Author: Aadarshxp
- */
+ * \brief OpponentGrid.cpp
+ *
+ * Source file to determine the impact of the player shots on the
+ * opponent grid.It provides information on sunken ships of opponent
+ * Also Updates if the player shot is a HIT or a MISS
+ *
+****************************************************************************/
 
 #include "OpponentGrid.h"
 
+/*Sets the Rows and columns of opponent grid*/
 OpponentGrid::OpponentGrid(int rows, int columns)
 {
 	m_rows =rows ;
 	m_columns =columns;
 }
 
+/*Default constructor*/
 OpponentGrid::OpponentGrid()
 {
 	m_rows = 0;
 	m_columns =0;
 }
-
+/*Rows of opponent grid*/
 int OpponentGrid::getRows()
 {
 	return m_rows;
 }
-
+/*Columns of opponent grid*/
 int OpponentGrid::getColumns()
 {
 	return m_columns;
 }
 
+/*Determine the impact of a shot*/
 void OpponentGrid::shotResult(const Shot &shot, Impact_t impact)
 {
 	set<GridPosition> sunkenShipPos;
@@ -39,7 +49,7 @@ void OpponentGrid::shotResult(const Shot &shot, Impact_t impact)
 	{
 		sunkenShipPos.insert(targetPos);
 
-		// Check is Ships extend on right side
+		// Check is Ships can stretch on right hand side
 		for (int colIndex =1  ; colIndex <5; colIndex++)
 		{
 			// check if grid positions exists in the map as key
@@ -57,7 +67,7 @@ void OpponentGrid::shotResult(const Shot &shot, Impact_t impact)
 
 		}
 
-		// Check is Ships extend on left hand side
+		// Check is Ships can stretch on left hand side
 		for (int colIndex =1  ; colIndex <5; colIndex++)
 		{
 			// check if grid positions exists in the map as key
@@ -74,7 +84,7 @@ void OpponentGrid::shotResult(const Shot &shot, Impact_t impact)
 			}
 		}
 
-		// Check is Ships extend on top side
+		// Check is Ships can stretch on top side
 		for (int rowIndex =1  ; rowIndex <5; rowIndex++)
 		{
 			// check if grid positions exists in the map as key
@@ -91,7 +101,7 @@ void OpponentGrid::shotResult(const Shot &shot, Impact_t impact)
 			}
 		}
 
-		// Check is Ships extend on bottom side
+		// Check is Ships can stretch on bottom side
 		for (int rowIndex =1  ; rowIndex <5; rowIndex++)
 		{
 			// check if grid positions exists in the map as key
@@ -107,7 +117,7 @@ void OpponentGrid::shotResult(const Shot &shot, Impact_t impact)
 				}
 			}
 		}
-
+		/*Starting and ending of the sunken ship set is the ships bow and stern*/
 		m_sunkenShips.push_back(Ship(*sunkenShipPos.begin(),*sunkenShipPos.rbegin()));
 	}
 
@@ -127,9 +137,3 @@ OpponentGrid::~OpponentGrid()
 {
 
 }
-
-
-
-
-
-

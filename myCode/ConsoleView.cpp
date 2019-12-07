@@ -1,9 +1,14 @@
-/*
- * ConsoleView.cpp
+/***************************************************************************
+****************************************************************************
+ * \file ConsoleView.cpp
+ * \author Aadarsh Kumar Singh <aadarsh.k.singh@stud.h-da.de>
+ * \date 30.11.2019
  *
- *  Created on: Nov 30, 2019
- *      Author: Aadarshxp
- */
+ * \brief ConsoleView.cpp
+ *
+ * Source file to print the board of own grid and opponent grid.
+ *
+****************************************************************************/
 
 #include "ConsoleView.h"
 
@@ -44,5 +49,5 @@ void ConsoleView::printBoard(char **pBoard)
 
 ConsoleView::~ConsoleView()
 {
-	delete m_pboard;
+
 }

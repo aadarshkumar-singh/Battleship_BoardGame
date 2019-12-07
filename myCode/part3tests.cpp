@@ -1,9 +1,14 @@
-/*
- * part3tests.cpp
+/***************************************************************************
+****************************************************************************
+ * \file part3tests.cpp
+ * \author Aadarsh Kumar Singh <aadarsh.k.singh@stud.h-da.de>
+ * \date 30.11.2019
  *
- *  Created on: Dec 7, 2019
- *      Author: Aadarshxp
- */
+ * \brief part3tests.cpp
+ *
+ *  Contains test cases for shots
+ *
+****************************************************************************/
 
 #include "Board.h"
 #include "part3tests.h"

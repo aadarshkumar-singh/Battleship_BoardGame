@@ -1,9 +1,18 @@
-/*
- * GridPosition.cpp
+/***************************************************************************
+****************************************************************************
+ * \file GridPosition.cpp
+ * \author Aadarsh Kumar Singh <aadarsh.k.singh@stud.h-da.de>
+ * \date 30.11.2019
  *
- *  Created on: Nov 30, 2019
- *      Author: Aadarshxp
- */
+ * \brief GridPosition.cpp
+ *
+ *	Source file to create grid Positions using an alphabet and number.
+ *	Also checks the created Grid Position is valid.
+ *
+ * \note  Alphabet can range from A to Z and numbers from 1 to 10.
+ *
+****************************************************************************/
+
 #include "GridPosition.h"
 
 GridPosition::GridPosition(char row, int column)
@@ -14,13 +23,17 @@ GridPosition::GridPosition(char row, int column)
 
 GridPosition::GridPosition(string position)
 {
+	/*Divide the string into two substring of size 1 and n*/
+
 	string row = position.substr(0,1);
 	string column = position.substr(1);
+
+	/* convert the substring into char and number*/
 	m_row = row.at(0);
-	//ToDo , column string starting with word not handled.
 	m_column = stoi(column);
 }
 
+/*Checks sanity of the Grid Positions*/
 bool GridPosition::isValid() const
 {
 	bool checkSanity = false;
@@ -63,14 +76,18 @@ bool GridPosition::operator<(const GridPosition& cmpGridPosition) const
 {
 	bool checkIfSmaller = false ;
 
+	/*Given that the increasing order is from A1 to J10 */
+	/*Check the row is smaller*/
 	if (m_row < cmpGridPosition.getRow())
 	{
 		return true ;
 	}
+	/*Check the row is greater*/
 	else if (m_row > cmpGridPosition.getRow())
 	{
 		return false;
 	}
+	/*if equal than take the smaller column*/
 	else if (m_row == cmpGridPosition.getRow())
 	{
 		if(m_column < cmpGridPosition.getColumn())
@@ -82,8 +99,6 @@ bool GridPosition::operator<(const GridPosition& cmpGridPosition) const
 	return checkIfSmaller;
 
 }
-
-
 
 GridPosition::GridPosition()
 {
