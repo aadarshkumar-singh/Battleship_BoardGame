@@ -32,4 +32,4 @@ We determine the result of the shots by the player and the opponents using retur
 ![display](img/update_ShotOnBoard_uml.png)
 
 ## Testing
-The implemented features are tested in the c files : part1test.cpp,part2test.cpp and part3test.cpp ,  inside myCode:  
+The implemented features are tested in the c files : part1test.cpp,part2test.cpp and part3test.cpp ,  inside myCode directory.
